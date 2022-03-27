@@ -1,1 +1,1438 @@
-﻿{"paragraphs":[{"text":"%md\n# About This Lab\n**Objective:** Become familiar with simple RDD operations\n**File locations:** /devsh_loudacre/\n**Successful outcome:**\n**Before you begin:**\n**Related lessons:** Working with RDDs\n\nCopyright © 2010–2021 Cloudera. All rights reserved.\nNot to be reproduced or shared without prior written consent from Cloudera.\n\n---","user":"anonymous","dateUpdated":"2021-06-13T21:09:18+0200","config":{"tableHide":true,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","editorHide":false,"fontSize":9,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622804_-448827206","id":"20171105-200834_1116095891","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:18+0200","dateFinished":"2021-06-13T21:09:18+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:18897"},{"text":"%md\n# Setup\n---\n\nThe following cells allow this notebook to run without errors from top to bottom any number of times","user":"anonymous","dateUpdated":"2021-06-13T21:09:18+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622806_-219990531","id":"20181114-164229_902436001","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:18+0200","dateFinished":"2021-06-13T21:09:18+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18898"},{"text":"%sh\n\nhdfs dfs -rm -r -f /devsh_loudacre/frostroad.txt\nhdfs dfs -rm -r -f /devsh_loudacre/makes*.txt","user":"anonymous","dateUpdated":"2021-06-13T21:09:18+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622806_-241054362","id":"20200113-225014_1330911389","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:18+0200","dateFinished":"2021-06-13T21:09:22+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18899"},{"text":"%md\n# Lab\n---","user":"anonymous","dateUpdated":"2021-06-13T21:09:22+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622808_1464954059","id":"20181114-164844_1661453681","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:22+0200","dateFinished":"2021-06-13T21:09:22+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18900"},{"text":"%md\n### Review the API Documentation for RDD Operations\n\nReview the API docs for the RDD class (which is in the Python module pyspark, and the Scala package org.apache.spark.rdd). \nTake note of the various available operations.","user":"anonymous","dateUpdated":"2021-06-13T21:09:22+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622808_-1983881969","id":"20200113-224229_628565915","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:23+0200","dateFinished":"2021-06-13T21:09:23+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18901"},{"text":"%md\n### Read and Display Data from a Text File\n\nReview the simple text file you will be using.\nThe file is located at /home/training/training_materials/devsh/data/frostroad.txt.","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622809_541523652","id":"20200113-224321_2135751926","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:23+0200","dateFinished":"2021-06-13T21:09:23+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18902"},{"title":"1 - Read /home/training/training_materials/devsh/data/frostroad.txt","text":"%sh\n\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622810_-1321669397","id":"20200113-224501_1013111284","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18903"},{"title":"2 - Upload the text file to HDFS directory /devsh_loudacre","text":"%sh\n\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622811_663790836","id":"20200113-224925_2003023834","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18904"},{"title":"3 - Define an RDD based on the frostroad.txt text file","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622812_1332406863","id":"20200113-225910_142286046","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18905"},{"text":"%md\nSpark has not yet read the file. \nIt will not do so until you perform an action on the RDD.\nTry counting the number of elements in the RDD using the count action:","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622813_2051528985","id":"20200113-230441_1168973087","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:23+0200","dateFinished":"2021-06-13T21:09:23+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18906"},{"title":"4 - Count the lines in your RDD","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622814_194645648","id":"20200113-230437_57310419","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18907"},{"text":"%md\nThe count operation causes the RDD to be materialized (created and populated).\nThe number of lines (23) should be displayed, for example:\n```pyspark\nOut[2]: 23(Python) \n```\nor\n```spark\nres1: Long = 23(Scala)\n```\nCall the collect operation to return all data in the RDD to the Spark driver. \nTake note of the type of the return value; in Python will be a list of strings, and in Scala it will be an array of strings.\n\n**Note:** collect returns the entire set of data. This is convenient for very small RDDs like this one, but be careful using collect for more typical large sets of data.","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622815_2073884216","id":"20200113-230739_691307132","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:23+0200","dateFinished":"2021-06-13T21:09:23+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18908"},{"title":"5 - Collect your RDD","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622816_1776825162","id":"20200113-230735_278776244","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18909"},{"title":"6 - Display the contents of the collected data by looping through the collection","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622816_-788272212","id":"20200113-231332_2020637729","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18910"},{"text":"%md\n### Transform Data in an RDD\n\nIn this exercise, you will load two text files containing the names of various cell phone makes, and append one to the other. \nReview the two text files you will be using by viewing (without editing) the file in a separate window. \nThe files are makes1.txt and makes2.txt in the /home/training/training_materials/devsh/data directory.","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622817_-1562161874","id":"20200113-231500_1328075001","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:23+0200","dateFinished":"2021-06-13T21:09:23+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18911"},{"title":"7 - Upload the two text file to HDFS directory /devsh_loudacre","text":"%sh\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:23+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622818_1113708361","id":"20200113-231458_1609746509","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18912"},{"title":"8 - Create an RDD called makes1RDD based on the /devsh_loudacre/makes1.txt file","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622819_48683372","id":"20200113-232112_1295518722","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18913"},{"title":"9 - Display the contents of the makes1RDD data using collect and then looping through returned collection","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622820_-1511059798","id":"20200113-232111_276596298","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18914"},{"title":"10 - Repeat the previous steps to create and display an RDD called makes2RDD based on the second file, /devsh_loudacre/makes2.txt","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622821_593750535","id":"20200113-232706_792978821","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18915"},{"title":"11 - Create a new RDD by appending the second RDD to the first using the union transformation","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622822_-968462415","id":"20200113-232958_1153053244","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18916"},{"title":"12 - Collect and display the contents of the new allMakesRDD RDD","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622824_-337631250","id":"20200113-233207_1689738900","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18917"},{"text":"%md\nUse the distinct transformation to remove duplicates from allMakesRDD.\nCollect and display the contents to confirm that duplicate elements were removed.","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622825_1315762063","id":"20200113-233456_1826475012","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:24+0200","dateFinished":"2021-06-13T21:09:24+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18918"},{"title":"13 - Use the distinct transformation to remove duplicates from allMakesRDD","text":"%spark\n","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622826_-1577844013","id":"20200113-233451_1173735633","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18919"},{"text":"%md\n### Optional: \nTry performing different transformations on the RDDs you created above, such as intersection, subtract, or zip.\nSee the RDD API documentation for details.","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622827_1875497911","id":"20200113-233716_587539793","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:24+0200","dateFinished":"2021-06-13T21:09:24+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18920"},{"text":"%md\n# Result\n**You have now:** \n\n* loaded a simple text file into a Resilient Distributed Dataset (RDD) and displayed its contents;\n* created two new RDDs and \n* used transformations to union them and remove duplicates.\n\n---","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622828_-1916602632","id":"20181119-142716_792318228","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:24+0200","dateFinished":"2021-06-13T21:09:24+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18921"},{"text":"%md\n# Solution\n---","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622829_1298020915","id":"20171113-155535_1769142099","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:24+0200","dateFinished":"2021-06-13T21:09:24+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18922"},{"title":"1 - Read /home/training/training_materials/devsh/data/frostroad.txt","text":"%sh\n\ncat /home/training/training_materials/dev/data/frostroad.txt","user":"anonymous","dateUpdated":"2021-06-13T21:09:24+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622830_-1737464708","id":"20200113-224727_1264359813","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:24+0200","dateFinished":"2021-06-13T21:09:24+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18923"},{"title":"2 - Upload the text file to HDFS directory /devsh_loudacre","text":"%sh\n\nhdfs dfs -put /home/training/training_materials/dev/data/frostroad.txt /devsh_loudacre","user":"anonymous","dateUpdated":"2021-06-13T21:09:25+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622832_13053308","id":"20200113-225002_1928604162","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:25+0200","dateFinished":"2021-06-13T21:09:27+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18924"},{"title":"3 - Define an RDD based on the frostroad.txt text file","text":"%spark\n\nval myRDD = sc.textFile(\"/devsh_loudacre/frostroad.txt\")","user":"anonymous","dateUpdated":"2021-06-13T21:09:27+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622833_646638408","id":"20200113-225945_408602366","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:09:27+0200","dateFinished":"2021-06-13T21:10:17+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18925"},{"title":"4 - Count the lines in your RDD","text":"%spark\n\nmyRDD.count","user":"anonymous","dateUpdated":"2021-06-13T21:10:17+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622834_738167259","id":"20200113-230550_584302657","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:17+0200","dateFinished":"2021-06-13T21:10:21+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18926"},{"title":"5 - Collect your RDD","text":"%spark\n\nval lines = myRDD.collect","user":"anonymous","dateUpdated":"2021-06-13T21:10:21+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622836_992156850","id":"20200113-231206_1684140761","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:21+0200","dateFinished":"2021-06-13T21:10:22+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18927"},{"title":"6 - Display the contents of the collected data by looping through the collection","text":"%spark\n\nfor (line <- lines) println(line)","user":"anonymous","dateUpdated":"2021-06-13T21:10:23+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622837_-516122193","id":"20200113-231347_761889459","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:23+0200","dateFinished":"2021-06-13T21:10:24+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18928"},{"title":"7 - Upload the two text file to HDFS directory /devsh_loudacre","text":"%sh\n\nhdfs dfs -put /home/training/training_materials/dev/data/makes*.txt /devsh_loudacre","user":"anonymous","dateUpdated":"2021-06-13T21:10:24+0200","config":{"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/sh","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622838_-1435220705","id":"20200113-231737_1676606596","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:24+0200","dateFinished":"2021-06-13T21:10:26+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18929"},{"title":"8 - Create an RDD called makes1RDD based on the /devsh_loudacre/makes1.txt file","text":"%spark\n\nval makes1RDD = sc.textFile(\"/devsh_loudacre/makes1.txt\")","user":"anonymous","dateUpdated":"2021-06-13T21:10:26+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622839_-1155624357","id":"20200113-232201_1879966356","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:26+0200","dateFinished":"2021-06-13T21:10:27+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18930"},{"title":"9 - Display the contents of the makes1RDD data using collect and then looping through returned collection","text":"%spark\n\nfor (make <- makes1RDD.collect()) println(make)","user":"anonymous","dateUpdated":"2021-06-13T21:10:27+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622840_-2095292388","id":"20200113-232514_292697455","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:27+0200","dateFinished":"2021-06-13T21:10:28+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18931"},{"title":"10 - Repeat the previous steps to create and display an RDD called makes2RDD based on the second file, /devsh_loudacre/makes2.txt","text":"%spark\n\nval makes2RDD = sc.textFile(\"/devsh_loudacre/makes2.txt\")\nfor (make <- makes2RDD.collect()) println(make)","user":"anonymous","dateUpdated":"2021-06-13T21:10:28+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622841_2028119283","id":"20200113-232724_1729214708","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:28+0200","dateFinished":"2021-06-13T21:10:29+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18932"},{"title":"11 - Create a new RDD by appending the second RDD to the first using the union transformation","text":"%spark\n\nval allMakesRDD = makes1RDD.union(makes2RDD)","user":"anonymous","dateUpdated":"2021-06-13T21:10:29+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622843_1629272767","id":"20200113-233026_550163966","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:30+0200","dateFinished":"2021-06-13T21:10:31+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18933"},{"title":"12 - Collect and display the contents of the new allMakesRDD RDD","text":"%spark\n\nfor (make <- allMakesRDD.collect) println(make)\n","user":"anonymous","dateUpdated":"2021-06-13T21:10:31+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622844_-2100230609","id":"20200113-233223_65376122","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:31+0200","dateFinished":"2021-06-13T21:10:32+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18934"},{"title":"13 - Use the distinct transformation to remove duplicates from allMakesRDD","text":"%spark\n\nfor (make <- allMakesRDD.distinct.collect) println(make)","user":"anonymous","dateUpdated":"2021-06-13T21:10:32+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":false,"completionKey":"TAB","completionSupport":true},"colWidth":12,"editorMode":"ace/mode/scala","fontSize":9,"editorHide":false,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622846_320786971","id":"20200113-233603_408861853","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:32+0200","dateFinished":"2021-06-13T21:10:34+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18935"},{"text":"%md\n# Tear Down\n---\n","user":"anonymous","dateUpdated":"2021-06-13T21:10:34+0200","config":{"colWidth":12,"fontSize":9,"enabled":true,"results":{},"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"editorMode":"ace/mode/markdown","editorHide":true,"tableHide":false},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705724428_908223507","id":"20210418-022844_326503872","dateCreated":"2021-04-18T02:28:44+0200","dateStarted":"2021-06-13T21:10:34+0200","dateFinished":"2021-06-13T21:10:34+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18936"},{"title":"Delete the Livy session","text":"%sh\n\nsessionId=$(curl -s localhost:28998/sessions | jq '.sessions[0].id')\ncurl -s localhost:28998/sessions/$sessionId -X DELETE","user":"anonymous","dateUpdated":"2021-06-13T21:10:34+0200","config":{"colWidth":12,"fontSize":9,"enabled":true,"results":{},"editorSetting":{"language":"sh","editOnDblClick":false,"completionKey":"TAB","completionSupport":false},"editorMode":"ace/mode/sh","title":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705749897_-1587603405","id":"20210418-022909_1566313562","dateCreated":"2021-04-18T02:29:09+0200","dateStarted":"2021-06-13T21:10:34+0200","dateFinished":"2021-06-13T21:10:34+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18937"},{"title":"Additional resources","text":"%md\nWe hope you've enjoyed this lab. Below are additional resources that you should find useful:\n\n1. [Cloudera Tutorials](http://cloudera.com/tutorials.html) are your natural next step where you can explore Spark in more depth.\n2. [Cloudera Community](https://community.cloudera.com) is a great resource for questions and answers on Spark, Data Analytics/Science, and many more Big Data topics.\n3. [Apache Spark Documentation](https://spark.apache.org/documentation.html) - official Spark documentation.\n4. [Apache Zeppelin Project Home Page](https://zeppelin.apache.org) - official Zeppelin web site.","user":"anonymous","dateUpdated":"2021-06-13T21:10:34+0200","config":{"tableHide":false,"editorSetting":{"language":"markdown","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":10,"editorMode":"ace/mode/markdown","fontSize":9,"editorHide":true,"title":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622847_200763741","id":"20181116-135131_93712280","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:34+0200","dateFinished":"2021-06-13T21:10:34+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18938"},{"text":"%angular\n</br>\n</br>\n</br>\n</br>\n<center>\n<a href=\"https://www.cloudera.com/about/training/courses.html\">\n  <img src=\"https://www.cloudera.com/content/dam/www/marketing/media-kit/logo-assets/cloudera_logo_darkorange.png\" alt=\"Cloudera University\" style=\"width:280px;height:40px;border:0;\" align=\"middle\">\n</a>\n</center>\n</br>\n</br>","user":"anonymous","dateUpdated":"2021-06-13T21:10:35+0200","config":{"tableHide":false,"editorSetting":{"language":"scala","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":2,"editorMode":"ace/mode/undefined","fontSize":9,"editorHide":true,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622848_-1855573532","id":"20200110-154537_1406191376","dateCreated":"2021-04-18T02:27:02+0200","dateStarted":"2021-06-13T21:10:35+0200","dateFinished":"2021-06-13T21:10:35+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18939"},{"text":"%angular\n","user":"anonymous","dateUpdated":"2021-06-13T21:10:35+0200","config":{"editorSetting":{"language":"scala","editOnDblClick":true,"completionKey":"TAB","completionSupport":false},"colWidth":12,"editorMode":"ace/mode/undefined","fontSize":9,"results":{},"enabled":true},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1618705622849_229359174","id":"20200110-162013_302547143","dateCreated":"2021-04-18T02:27:02+0200","status":"FINISHED","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:18940"}],"name":"Dev/Labs/Scala/WorkingWithRDDs","id":"2G67KH1R6","noteParams":{},"noteForms":{},"angularObjects":{"md:shared_process":[],"angular:shared_process":[],"sh:shared_process":[],"livy:shared_process":[]},"config":{"isZeppelinNotebookCronEnable":false,"looknfeel":"default","personalizedMode":"false"},"info":{}}
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# About This Lab\n**Objective:** Become familiar with simple RDD operations\n**File locations:** /devsh_loudacre/\n**Successful outcome:**\n**Before you begin:**\n**Related lessons:** Working with RDDs\n\nCopyright © 2010–2021 Cloudera. All rights reserved.\nNot to be reproduced or shared without prior written consent from Cloudera.\n\n---",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328597_846732763",
+      "id": "20171105-200834_1116095891",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:6515"
+    },
+    {
+      "text": "%md\n# Setup\n---\n\nThe following cells allow this notebook to run without errors from top to bottom any number of times",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328599_-645018222",
+      "id": "20181114-164229_902436001",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6516"
+    },
+    {
+      "text": "%sh\n\nhdfs dfs -rm -r -f /devsh_loudacre/frostroad.txt\nhdfs dfs -rm -r -f /devsh_loudacre/makes*.txt",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328600_63281980",
+      "id": "20200113-225014_1330911389",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6517"
+    },
+    {
+      "text": "%md\n# Lab\n---",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328601_-291263378",
+      "id": "20181114-164844_1661453681",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6518"
+    },
+    {
+      "text": "%md\n### Review the API Documentation for RDD Operations\n\nReview the API docs for the RDD class (which is in the Python module pyspark, and the Scala package org.apache.spark.rdd). \nTake note of the various available operations.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328601_-1518049948",
+      "id": "20200113-224229_628565915",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6519"
+    },
+    {
+      "text": "%md\n### Read and Display Data from a Text File\n\nReview the simple text file you will be using.\nThe file is located at /home/training/training_materials/devsh/data/frostroad.txt.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328602_-940240627",
+      "id": "20200113-224321_2135751926",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6520"
+    },
+    {
+      "title": "1 - Read /home/training/training_materials/devsh/data/frostroad.txt",
+      "text": "%sh\n\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328603_-1924777174",
+      "id": "20200113-224501_1013111284",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6521"
+    },
+    {
+      "title": "2 - Upload the text file to HDFS directory /devsh_loudacre",
+      "text": "%sh\n\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328603_-706164424",
+      "id": "20200113-224925_2003023834",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6522"
+    },
+    {
+      "title": "3 - Define an RDD based on the frostroad.txt text file",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328604_1647113460",
+      "id": "20200113-225910_142286046",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6523"
+    },
+    {
+      "text": "%md\nSpark has not yet read the file. \nIt will not do so until you perform an action on the RDD.\nTry counting the number of elements in the RDD using the count action:",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328604_1431521575",
+      "id": "20200113-230441_1168973087",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6524"
+    },
+    {
+      "title": "4 - Count the lines in your RDD",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328605_-1342687114",
+      "id": "20200113-230437_57310419",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6525"
+    },
+    {
+      "text": "%md\nThe count operation causes the RDD to be materialized (created and populated).\nThe number of lines (23) should be displayed, for example:\n```pyspark\nOut[2]: 23(Python) \n```\nor\n```spark\nres1: Long = 23(Scala)\n```\nCall the collect operation to return all data in the RDD to the Spark driver. \nTake note of the type of the return value; in Python will be a list of strings, and in Scala it will be an array of strings.\n\n**Note:** collect returns the entire set of data. This is convenient for very small RDDs like this one, but be careful using collect for more typical large sets of data.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328606_233543932",
+      "id": "20200113-230739_691307132",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6526"
+    },
+    {
+      "title": "5 - Collect your RDD",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328606_-1530434519",
+      "id": "20200113-230735_278776244",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6527"
+    },
+    {
+      "title": "6 - Display the contents of the collected data by looping through the collection",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328607_1151753334",
+      "id": "20200113-231332_2020637729",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6528"
+    },
+    {
+      "text": "%md\n### Transform Data in an RDD\n\nIn this exercise, you will load two text files containing the names of various cell phone makes, and append one to the other. \nReview the two text files you will be using by viewing (without editing) the file in a separate window. \nThe files are makes1.txt and makes2.txt in the /home/training/training_materials/devsh/data directory.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328607_834872086",
+      "id": "20200113-231500_1328075001",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6529"
+    },
+    {
+      "title": "7 - Upload the two text file to HDFS directory /devsh_loudacre",
+      "text": "%sh\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328607_789735127",
+      "id": "20200113-231458_1609746509",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6530"
+    },
+    {
+      "title": "8 - Create an RDD called makes1RDD based on the /devsh_loudacre/makes1.txt file",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328608_732641792",
+      "id": "20200113-232112_1295518722",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6531"
+    },
+    {
+      "title": "9 - Display the contents of the makes1RDD data using collect and then looping through returned collection",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328608_-581175965",
+      "id": "20200113-232111_276596298",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6532"
+    },
+    {
+      "title": "10 - Repeat the previous steps to create and display an RDD called makes2RDD based on the second file, /devsh_loudacre/makes2.txt",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328608_-824305146",
+      "id": "20200113-232706_792978821",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6533"
+    },
+    {
+      "title": "11 - Create a new RDD by appending the second RDD to the first using the union transformation",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328609_-1014348313",
+      "id": "20200113-232958_1153053244",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6534"
+    },
+    {
+      "title": "12 - Collect and display the contents of the new allMakesRDD RDD",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328609_495181356",
+      "id": "20200113-233207_1689738900",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6535"
+    },
+    {
+      "text": "%md\nUse the distinct transformation to remove duplicates from allMakesRDD.\nCollect and display the contents to confirm that duplicate elements were removed.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328609_-1170799915",
+      "id": "20200113-233456_1826475012",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6536"
+    },
+    {
+      "title": "13 - Use the distinct transformation to remove duplicates from allMakesRDD",
+      "text": "%spark\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328610_403173609",
+      "id": "20200113-233451_1173735633",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6537"
+    },
+    {
+      "text": "%md\n### Optional: \nTry performing different transformations on the RDDs you created above, such as intersection, subtract, or zip.\nSee the RDD API documentation for details.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328610_-602054191",
+      "id": "20200113-233716_587539793",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6538"
+    },
+    {
+      "text": "%md\n# Result\n**You have now:** \n\n* loaded a simple text file into a Resilient Distributed Dataset (RDD) and displayed its contents;\n* created two new RDDs and \n* used transformations to union them and remove duplicates.\n\n---",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328610_-1014548510",
+      "id": "20181119-142716_792318228",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6539"
+    },
+    {
+      "text": "%md\n# Solution\n---",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328611_942382395",
+      "id": "20171113-155535_1769142099",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6540"
+    },
+    {
+      "title": "1 - Read /home/training/training_materials/devsh/data/frostroad.txt",
+      "text": "%sh\n\ncat /home/training/training_materials/dev/data/frostroad.txt",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328611_-713568106",
+      "id": "20200113-224727_1264359813",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6541"
+    },
+    {
+      "title": "2 - Upload the text file to HDFS directory /devsh_loudacre",
+      "text": "%sh\n\nhdfs dfs -put /home/training/training_materials/dev/data/frostroad.txt /devsh_loudacre",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328612_-163830558",
+      "id": "20200113-225002_1928604162",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6542"
+    },
+    {
+      "title": "3 - Define an RDD based on the frostroad.txt text file",
+      "text": "%spark\n\nval myRDD = sc.textFile(\"/devsh_loudacre/frostroad.txt\")",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328612_1235803466",
+      "id": "20200113-225945_408602366",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6543"
+    },
+    {
+      "title": "4 - Count the lines in your RDD",
+      "text": "%spark\n\nmyRDD.count",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328612_-1395554431",
+      "id": "20200113-230550_584302657",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6544"
+    },
+    {
+      "title": "5 - Collect your RDD",
+      "text": "%spark\n\nval lines = myRDD.collect",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328613_1847718445",
+      "id": "20200113-231206_1684140761",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6545"
+    },
+    {
+      "title": "6 - Display the contents of the collected data by looping through the collection",
+      "text": "%spark\n\nfor (line <- lines) println(line)",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328613_-1393797062",
+      "id": "20200113-231347_761889459",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6546"
+    },
+    {
+      "title": "7 - Upload the two text file to HDFS directory /devsh_loudacre",
+      "text": "%sh\n\nhdfs dfs -put /home/training/training_materials/dev/data/makes*.txt /devsh_loudacre",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328614_-428486657",
+      "id": "20200113-231737_1676606596",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6547"
+    },
+    {
+      "title": "8 - Create an RDD called makes1RDD based on the /devsh_loudacre/makes1.txt file",
+      "text": "%spark\n\nval makes1RDD = sc.textFile(\"/devsh_loudacre/makes1.txt\")",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328615_1201385631",
+      "id": "20200113-232201_1879966356",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6548"
+    },
+    {
+      "title": "9 - Display the contents of the makes1RDD data using collect and then looping through returned collection",
+      "text": "%spark\n\nfor (make <- makes1RDD.collect()) println(make)",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328615_-1835336754",
+      "id": "20200113-232514_292697455",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6549"
+    },
+    {
+      "title": "10 - Repeat the previous steps to create and display an RDD called makes2RDD based on the second file, /devsh_loudacre/makes2.txt",
+      "text": "%spark\n\nval makes2RDD = sc.textFile(\"/devsh_loudacre/makes2.txt\")\nfor (make <- makes2RDD.collect()) println(make)",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328616_1442057120",
+      "id": "20200113-232724_1729214708",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6550"
+    },
+    {
+      "title": "11 - Create a new RDD by appending the second RDD to the first using the union transformation",
+      "text": "%spark\n\nval allMakesRDD = makes1RDD.union(makes2RDD)",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328616_-850228188",
+      "id": "20200113-233026_550163966",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6551"
+    },
+    {
+      "title": "12 - Collect and display the contents of the new allMakesRDD RDD",
+      "text": "%spark\n\nfor (make <- allMakesRDD.collect) println(make)\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328616_-1367701872",
+      "id": "20200113-233223_65376122",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6552"
+    },
+    {
+      "title": "13 - Use the distinct transformation to remove duplicates from allMakesRDD",
+      "text": "%spark\n\nfor (make <- allMakesRDD.distinct.collect) println(make)",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328617_992434321",
+      "id": "20200113-233603_408861853",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6553"
+    },
+    {
+      "text": "%md\n# Tear Down\n---\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328617_1373795349",
+      "id": "20210418-022844_326503872",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6554"
+    },
+    {
+      "title": "Delete the Livy session",
+      "text": "%sh\n\nsessionId=$(curl -s localhost:28998/sessions | jq '.sessions[0].id')\ncurl -s localhost:28998/sessions/$sessionId -X DELETE",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328618_-1205744205",
+      "id": "20210418-022909_1566313562",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6555"
+    },
+    {
+      "title": "Additional resources",
+      "text": "%md\nWe hope you've enjoyed this lab. Below are additional resources that you should find useful:\n\n1. [Cloudera Tutorials](http://cloudera.com/tutorials.html) are your natural next step where you can explore Spark in more depth.\n2. [Cloudera Community](https://community.cloudera.com) is a great resource for questions and answers on Spark, Data Analytics/Science, and many more Big Data topics.\n3. [Apache Spark Documentation](https://spark.apache.org/documentation.html) - official Spark documentation.\n4. [Apache Zeppelin Project Home Page](https://zeppelin.apache.org) - official Zeppelin web site.",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 10,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328618_-2057401987",
+      "id": "20181116-135131_93712280",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6556"
+    },
+    {
+      "text": "%angular\n</br>\n</br>\n</br>\n</br>\n<center>\n<a href=\"https://www.cloudera.com/about/training/courses.html\">\n  <img src=\"https://www.cloudera.com/content/dam/www/marketing/media-kit/logo-assets/cloudera_logo_darkorange.png\" alt=\"Cloudera University\" style=\"width:280px;height:40px;border:0;\" align=\"middle\">\n</a>\n</center>\n</br>\n</br>",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 2,
+        "editorMode": "ace/mode/undefined",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328619_251378841",
+      "id": "20200110-154537_1406191376",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6557"
+    },
+    {
+      "text": "%angular\n",
+      "user": "adm_knguyen_140322",
+      "dateUpdated": "2022-03-27T15:02:08+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/undefined",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1648393328619_-1967336802",
+      "id": "20200110-162013_302547143",
+      "dateCreated": "2022-03-27T15:02:08+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:6558"
+    }
+  ],
+  "name": "DE/Labs/Scala/WorkingWithRDDs",
+  "id": "2H1RQ8URA",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "angular:shared_process": [],
+    "sh:shared_process": [],
+    "livy:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}
